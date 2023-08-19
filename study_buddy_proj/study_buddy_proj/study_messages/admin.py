@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Messages
+from .models import Message
 
 
-@admin.register(Messages)
+@admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
     list_display = ("user", "room", "message")

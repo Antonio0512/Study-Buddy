@@ -5,7 +5,7 @@ from ..rooms.models import Room
 User = get_user_model()
 
 
-class Messages(models.Model):
+class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     message = models.TextField()
