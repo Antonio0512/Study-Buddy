@@ -1,5 +1,28 @@
 {% extends "base/base.html" %}
 {% block content %}
-    <h2>{{ room.name }}</h2>
+    <h1>{{ room.name }}</h1>
     <p>{{ room.description }}</p>
+
+    <div class="comment-wrapper">
+        <h3>Conversation</h3>
+        <hr/>
+
+        {% for message in messages %}
+            <div>
+                <small>@{{ message.user.username }} {{ message.created|timesince }} ago</small>
+                <p>{{ message.message }}</p>
+                <hr/>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if request.user.is_authenticated %}
+        <div class="comment-form">
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ comment_form }}
+            </form>
+        </div>
+    {% endif %}
+
 {% endblock %}

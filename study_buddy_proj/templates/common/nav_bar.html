@@ -1,10 +1,18 @@
-<a href="/">
-    <h1>LOGO</h1>
-</a>
-<form method="get" action="{% url "home" %}">
-    <label>
-        <input type="text" name="q" placeholder="Search Rooms..."/>
-    </label>
-    <button type="submit">Search</button>
-</form>
-<hr/>
+<nav>
+    <a href="/">
+        <h2>LOGO</h2>
+    </a>
+    <a href="{% url "user-register" %}">
+        <h2>Register</h2>
+    </a>
+    <a href="{% url "user-login" %}">
+        <h2>Login</h2>
+    </a>
+    <form method="get" action="{% url "home" %}">
+        <label>
+            <input type="text" name="q" placeholder="Search Rooms..."/>
+        </label>
+        <button type="submit">Search</button>
+    </form>
+    <hr/>
+</nav>

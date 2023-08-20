@@ -1,6 +1,8 @@
 from django.contrib import messages
-from django.contrib.auth import get_user_model, authenticate, login
-from django.contrib.auth.views import LoginView
+from django.contrib.auth import get_user_model, authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
@@ -37,5 +39,13 @@ class UserLoginView(LoginView):
         return reverse_lazy("home")
 
     def form_invalid(self, form):
-        messages.error(self.request, "Invalid Username or Password!")
+        messages.error(self.request, "The Username and Password do not match!")
         return super().form_invalid(form)
+
+
+class UserLogoutView(LoginRequiredMixin, LogoutView):
+    template_name = "accounts/user-logout.html"
+
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('home')
