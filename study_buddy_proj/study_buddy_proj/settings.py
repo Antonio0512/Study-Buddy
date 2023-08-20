@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     'study_buddy_proj.accounts',
     'study_buddy_proj.rooms',
     'study_buddy_proj.study_messages',
-    'study_buddy_proj.common'
+    'study_buddy_proj.common',
+    'study_buddy_proj.topics'
 ]
 
 MIDDLEWARE = [
