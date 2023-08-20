@@ -1,5 +1,9 @@
-from django.views.generic import TemplateView
+from django.views.generic import ListView
+
+from ..rooms.models import Room
 
 
-class IndexView(TemplateView):
+class RoomsList(ListView):
+    model = Room
     template_name = "common/home.html"
+    context_object_name = "rooms"

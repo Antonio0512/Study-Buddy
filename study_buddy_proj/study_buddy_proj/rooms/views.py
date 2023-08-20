@@ -1,15 +1,8 @@
-from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .forms import RoomForm
-
 from ..rooms.models import Room
-
-
-class RoomsList(ListView):
-    model = Room
-    template_name = "room/room-list.html"
-    context_object_name = "rooms"
 
 
 class RoomDetailsView(DetailView):
@@ -25,3 +18,21 @@ class RoomCreateView(CreateView):
 
     def get_success_url(self):
         return reverse("rooms-all")
+
+
+class RoomUpdateView(UpdateView):
+    model = Room
+    form_class = RoomForm
+    template_name = "room/room-form.html"
+
+    def get_success_url(self):
+        return reverse("room-details")
+
+    def get_object(self, queryset=None):
+        return self.model.objects.get(pk=self.kwargs['pk'])
+
+
+class RoomDeleteView(DeleteView):
+    model = Room
+    template_name = "room/room-delete.html"
+    success_url = reverse_lazy("rooms-all")
