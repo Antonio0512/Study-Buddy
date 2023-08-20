@@ -8,6 +8,9 @@
     <a href="{% url "user-login" %}">
         <h2>Login</h2>
     </a>
+    <a href="{% url "user-logout" %}">
+        <h2>Logout</h2>
+    </a>
     <form method="get" action="{% url "home" %}">
         <label>
             <input type="text" name="q" placeholder="Search Rooms..."/>

@@ -1,28 +1,44 @@
 {% extends "base/base.html" %}
 {% block content %}
-    <h1>{{ room.name }}</h1>
-    <p>{{ room.description }}</p>
+    <div class="room-container">
+        <div>
+            <h1>{{ room.name }}</h1>
+            <p>{{ room.description }}</p>
 
-    <div class="comment-wrapper">
-        <h3>Conversation</h3>
-        <hr/>
-
-        {% for message in messages %}
-            <div>
-                <small>@{{ message.user.username }} {{ message.created|timesince }} ago</small>
-                <p>{{ message.message }}</p>
+            <div class="comment-wrapper">
+                <h3>Conversation</h3>
                 <hr/>
+
+                {% for message in messages %}
+                    <div>
+                        <a href="{% url "message-delete" room.pk message.pk %}">Delete</a>
+                        <small>@{{ message.user.username }} {{ message.created|timesince }} ago</small>
+                        <p>{{ message.message }}</p>
+                        <hr/>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
 
-    {% if request.user.is_authenticated %}
-        <div class="comment-form">
-            <form method="post" action="">
-                {% csrf_token %}
-                {{ comment_form }}
-            </form>
+            {% if request.user.is_authenticated %}
+                <div class="comment-form">
+                    <form method="post" action="{% url "message-add" room.pk %}">
+                        {% csrf_token %}
+                        {{ comment_form }}
+                    </form>
+                </div>
+            {% endif %}
         </div>
-    {% endif %}
 
+        <div>
+            <h3>Participants</h3>
+            <hr/>
+
+            {% for participant in participants %}
+                <div>
+                    <p>@{{ participant.username }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
 {% endblock %}
