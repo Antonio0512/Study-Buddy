@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
@@ -39,3 +40,11 @@ class MessageDeleteView(LoginRequiredMixin, DeleteView):
         context['room_id'] = message.room.pk
 
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+        message = self.get_object()
+
+        if message.user != self.request.user:
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)

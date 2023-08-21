@@ -11,7 +11,9 @@
 
                 {% for message in messages %}
                     <div>
-                        <a href="{% url "message-delete" message.pk %}">Delete</a>
+                        {% if message.user == request.user %}
+                            <a href="{% url "message-delete" message.pk %}">Delete</a>
+                        {% endif %}
                         <small>@{{ message.user.username }} {{ message.created|timesince }} ago</small>
                         <p>{{ message.message }}</p>
                         <hr/>

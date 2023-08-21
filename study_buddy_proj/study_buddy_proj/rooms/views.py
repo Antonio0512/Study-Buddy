@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
@@ -49,3 +50,11 @@ class RoomDeleteView(LoginRequiredMixin, DeleteView):
     model = Room
     template_name = "room/room-delete.html"
     success_url = reverse_lazy("rooms-all")
+
+    def dispatch(self, request, *args, **kwargs):
+        room = self.get_object()
+
+        if room.host != self.request.user:
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)
