@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
 from study_buddy_proj.accounts.forms import UserRegisterForm, UserLoginForm
 
@@ -49,3 +49,9 @@ class UserLogoutView(LoginRequiredMixin, LogoutView):
     def post(self, request, *args, **kwargs):
         logout(request)
         return redirect('home')
+
+
+class ProfileDetailsView(DetailView):
+    model = User
+    template_name = "accounts/profile-details.html"
+    context_object_name = "profile"

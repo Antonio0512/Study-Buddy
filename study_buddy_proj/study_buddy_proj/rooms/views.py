@@ -17,7 +17,7 @@ class RoomDetailsView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         room = self.get_object()
-        messages = Message.objects.filter(room=room).order_by('-created')
+        messages = Message.objects.filter(room=room)
         participants = room.participants.all()
         context['messages'] = messages
         context['comment_form'] = MessageForm
