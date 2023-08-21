@@ -7,6 +7,9 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 
 from study_buddy_proj.accounts.forms import UserRegisterForm, UserLoginForm
+from study_buddy_proj.rooms.models import Room
+from study_buddy_proj.study_messages.models import Message
+from study_buddy_proj.topics.models import Topic
 
 User = get_user_model()
 
@@ -55,3 +58,16 @@ class ProfileDetailsView(DetailView):
     model = User
     template_name = "accounts/profile-details.html"
     context_object_name = "profile"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        user = self.get_object()
+        user_topics = Topic.objects.all()
+        user_rooms = Room.objects.filter(host=user)
+        user_messages = Message.objects.filter(user=user)
+        context["rooms"] = user_rooms
+        context["topics"] = user_topics
+        context["activity_messages"] = user_messages
+
+        return context

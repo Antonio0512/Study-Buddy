@@ -2,7 +2,8 @@
 <hr/>
 {% for message in activity_messages %}
     <div>
-        <small>@{{ message.user }} {{ message.created|timesince }}</small>
+        <small><a href="{% url 'profile-details' message.user.pk %}">@{{ message.user }}</a> {{ message.created|timesince }}
+        </small>
         <small>replied to "{{ message.room }}"</small>
         <p>{{ message }}</p>
         {% if request.user == message.user %}

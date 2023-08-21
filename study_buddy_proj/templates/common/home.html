@@ -7,7 +7,9 @@
         <div>
             <h5>{{ rooms.count }} rooms available</h5>
             <a href="{% url 'room-create' %}">Create Room</a>
-            {% include "feed/feed.html" %}
+            <div>
+                {% include "feed/feed.html" %}
+            </div>
         </div>
         <div>
             {% include "messages/activity_messages.html" %}

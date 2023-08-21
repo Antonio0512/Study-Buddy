@@ -2,4 +2,15 @@
 
 {% block content %}
     <h1>{{ profile.username }}</h1>
+    <div class="profile-container">
+        <div>
+            {% include "topics/topics.html" %}
+        </div>
+        <div>
+            {% include "feed/feed.html" %}
+        </div>
+        <div>
+            {% include "messages/activity_messages.html" %}
+        </div>
+    </div>
 {% endblock %}

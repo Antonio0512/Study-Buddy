@@ -30,8 +30,12 @@ class RoomCreateView(LoginRequiredMixin, CreateView):
     form_class = RoomForm
     template_name = "room/room-form.html"
 
+    def form_valid(self, form):
+        form.instance.host = self.request.user
+        return super().form_valid(form)
+
     def get_success_url(self):
-        return reverse("rooms-all")
+        return reverse("home")
 
 
 class RoomUpdateView(LoginRequiredMixin, UpdateView):
