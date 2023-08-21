@@ -27,5 +27,15 @@ class MessageAddView(LoginRequiredMixin, FormView):
 
 class MessageDeleteView(LoginRequiredMixin, DeleteView):
     model = Message
-    template_name = "room/room-details.html"
-    success_url = reverse_lazy("room-details")
+    template_name = "messages/message-delete.html"
+
+    def get_success_url(self):
+        return reverse_lazy("room-details", kwargs={'pk': self.object.room.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        message = self.object
+
+        context['room_id'] = message.room.pk
+
+        return context

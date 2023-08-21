@@ -1,0 +1,12 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+        <p>The message: "{{ message.message }}" will be deleted forever!</p>
+        <input type="submit" value="Delete">
+        <a href="{% url "room-details" room_id %}">Cancel</a>
+    </form>
+
+{% endblock %}

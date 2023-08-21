@@ -8,5 +8,5 @@ urlpatterns = [
     path("<int:pk>/edit/", views.RoomUpdateView.as_view(), name="room-update"),
     path("<int:pk>/delete/", views.RoomDeleteView.as_view(), name="room-delete"),
     path("<int:pk>/add-message/", MessageAddView.as_view(), name="message-add"),
-    path("<int:pk>/delete-message/<int:message_pk>/", MessageDeleteView.as_view(), name="message-delete")
+    path("<int:pk>/delete-message/", MessageDeleteView.as_view(), name="message-delete")
 ]

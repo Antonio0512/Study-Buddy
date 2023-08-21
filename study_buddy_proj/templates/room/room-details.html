@@ -11,7 +11,7 @@
 
                 {% for message in messages %}
                     <div>
-                        <a href="{% url "message-delete" room.pk message.pk %}">Delete</a>
+                        <a href="{% url "message-delete" message.pk %}">Delete</a>
                         <small>@{{ message.user.username }} {{ message.created|timesince }} ago</small>
                         <p>{{ message.message }}</p>
                         <hr/>
