@@ -1,0 +1,6 @@
+{% for topic in topics %}
+    <li>
+        <a href="{% url "home" %}?q={{ topic.name }}"
+           class="active">{{ topic.name }}<span>{{ topic.participants }}</span></a>
+    </li>
+{% endfor %}
