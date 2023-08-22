@@ -6,7 +6,7 @@
             <div class="layout__box">
                 <div class="layout__boxHeader">
                     <div class="layout__boxTitle">
-                        <a href="index.html">
+                        <a href="{% url "home" %}">
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                                  viewBox="0 0 32 32">
                                 <title>arrow-left</title>
@@ -32,23 +32,8 @@
                             <input placeholder="Search for posts"/>
                         </label>
                     </form>
-
                     <ul class="topics__list">
-                        <li>
-                            <a href="/" class="active">All <span>553</span></a>
-                        </li>
-                        <li>
-                            <a href="/">Python <span>232</span></a>
-                        </li>
-                        <li>
-                            <a href="/">JavaScript <span>122</span></a>
-                        </li>
-                        <li>
-                            <a href="/">React <span>57</span></a>
-                        </li>
-                        <li>
-                            <a href="/">Database <span>90</span></a>
-                        </li>
+                        {% include "topics/topics-list.html" %}
                     </ul>
                 </div>
             </div>

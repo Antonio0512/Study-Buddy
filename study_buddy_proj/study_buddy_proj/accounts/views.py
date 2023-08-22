@@ -3,10 +3,10 @@ from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.urls import reverse_lazy, reverse
+from django.views.generic import CreateView, DetailView, UpdateView
 
-from study_buddy_proj.accounts.forms import UserRegisterForm, UserLoginForm
+from study_buddy_proj.accounts.forms import UserRegisterForm, UserLoginForm, UserUpdateForm
 from study_buddy_proj.rooms.models import Room
 from study_buddy_proj.study_messages.models import Message
 from study_buddy_proj.topics.models import Topic
@@ -71,3 +71,15 @@ class ProfileDetailsView(DetailView):
         context["activity_messages"] = user_messages
 
         return context
+
+
+class ProfileUpdateView(UpdateView):
+    model = User
+    template_name = "base/settings.html"
+    form_class = UserUpdateForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse("profile-details", kwargs={'pk': self.object.pk})
