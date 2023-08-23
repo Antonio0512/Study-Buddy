@@ -96,9 +96,9 @@ class ProfileDeleteView(DeleteView):
     success_url = reverse_lazy("home")
 
     def dispatch(self, request, *args, **kwargs):
-        room = self.get_object()
+        profile = self.get_object()
 
-        if room.host != self.request.user:
+        if profile != self.request.user:
             raise PermissionDenied
 
         return super().dispatch(request, *args, **kwargs)
