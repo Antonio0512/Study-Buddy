@@ -48,6 +48,8 @@
                         {% if request.user == profile %}
                             <a href="{% url "profile-update" profile.pk %}" class="btn btn--main btn--pill">Edit
                                 Profile</a>
+                            <a href="{% url "profile-delete" profile.pk %}" class="btn btn--main btn--pill">Delete
+                                Profile</a>
                         {% endif %}
                     </div>
                     <div class="profile__about">

@@ -41,7 +41,7 @@ class RoomCreateView(LoginRequiredMixin, CreateView):
 class RoomUpdateView(LoginRequiredMixin, UpdateView):
     model = Room
     form_class = RoomCreateForm
-    template_name = "room/room-create.html"
+    template_name = "room/room-update.html"
 
     def get_success_url(self):
         return reverse("room-details")
@@ -49,10 +49,19 @@ class RoomUpdateView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.model.objects.get(pk=self.kwargs['pk'])
 
+    def dispatch(self, request, *args, **kwargs):
+        room = self.get_object()
+
+        if room.host != self.request.user:
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 class RoomDeleteView(LoginRequiredMixin, DeleteView):
     model = Room
     template_name = "room/room-delete.html"
+    context_object_name = "room"
     success_url = reverse_lazy("rooms-all")
 
     def dispatch(self, request, *args, **kwargs):

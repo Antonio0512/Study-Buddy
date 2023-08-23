@@ -2,9 +2,10 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
 from study_buddy_proj.accounts.forms import UserRegisterForm, UserLoginForm, UserUpdateForm
 from study_buddy_proj.rooms.models import Room
@@ -86,3 +87,18 @@ class ProfileUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse("profile-details", kwargs={'pk': self.object.pk})
+
+
+class ProfileDeleteView(DeleteView):
+    model = User
+    template_name = "accounts/profile_delete.html"
+    context_object_name = "profile"
+    success_url = reverse_lazy("home")
+
+    def dispatch(self, request, *args, **kwargs):
+        room = self.get_object()
+
+        if room.host != self.request.user:
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)
