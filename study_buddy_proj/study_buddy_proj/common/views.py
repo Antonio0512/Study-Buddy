@@ -31,9 +31,7 @@ class RoomsList(ListView):
 
         if search_query:
             queryset = queryset.filter(
-                Q(name__icontains=search_query) |
-                Q(topic__name__icontains=search_query) |
-                Q(description__icontains=search_query)
+                Q(topic__name__iexact=search_query)
             )
 
         return queryset

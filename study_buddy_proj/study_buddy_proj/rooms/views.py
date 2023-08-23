@@ -3,7 +3,7 @@ from django.core.exceptions import PermissionDenied
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
-from .forms import RoomForm
+from .forms import RoomCreateForm
 from ..rooms.models import Room
 from ..study_messages.forms import MessageForm
 from ..study_messages.models import Message
@@ -27,8 +27,8 @@ class RoomDetailsView(DetailView):
 
 class RoomCreateView(LoginRequiredMixin, CreateView):
     model = Room
-    form_class = RoomForm
-    template_name = "room/room-form.html"
+    form_class = RoomCreateForm
+    template_name = "room/room-create.html"
 
     def form_valid(self, form):
         form.instance.host = self.request.user
@@ -40,8 +40,8 @@ class RoomCreateView(LoginRequiredMixin, CreateView):
 
 class RoomUpdateView(LoginRequiredMixin, UpdateView):
     model = Room
-    form_class = RoomForm
-    template_name = "room/room-form.html"
+    form_class = RoomCreateForm
+    template_name = "room/room-create.html"
 
     def get_success_url(self):
         return reverse("room-details")
