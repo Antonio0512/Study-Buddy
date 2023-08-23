@@ -15,11 +15,11 @@ class RoomsList(ListView):
         search_query = self.request.GET.get('q')
 
         if search_query:
-            activity_messages = Message.objects.filter(Q(room__topic__name__icontains=search_query))
+            activity_messages = Message.objects.filter(Q(room__topic__name__icontains=search_query))[:5]
         else:
-            activity_messages = Message.objects.all()
+            activity_messages = Message.objects.all()[:5]
 
-        topics = Topic.objects.all()
+        topics = Topic.objects.all()[:5]
         context = super().get_context_data(**kwargs)
         context["topics"] = topics
         context["activity_messages"] = activity_messages
