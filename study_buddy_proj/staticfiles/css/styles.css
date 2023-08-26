@@ -896,6 +896,24 @@ a {
     color: var(--color-dark-light);
 }
 
+@media screen and (max-width: 768px) {
+    .profile-page .container {
+        flex-direction: column; /* Stack columns on smaller screens */
+    }
+
+    .roomList {
+        order: 2; /* Move the room list to the bottom on smaller screens */
+    }
+
+    .profile {
+        margin-bottom: 2rem; /* Add some space between sections */
+    }
+
+    .activities {
+        margin-top: 2rem; /* Add some space between sections */
+    }
+}
+
 /*==============================
 =>  Room
 ================================*/
@@ -1128,6 +1146,29 @@ a {
 .room__message > form > input::placeholder {
     color: var(--color-light-gray);
 }
+
+@media screen and (max-width: 768px) {
+    .messages-container {
+        max-height: 60vh; /* Set the desired maximum height */
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-gray) var(--color-dark-medium);
+    }
+
+    .messages-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .messages-container::-webkit-scrollbar-thumb {
+        background-color: var(--color-dark-medium);
+        border-radius: 3px;
+    }
+
+    .messages-container::-webkit-scrollbar-track {
+        background-color: var(--color-gray);
+    }
+}
+
 
 .participants__top span {
     color: var(--color-main);

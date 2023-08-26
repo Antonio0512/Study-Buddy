@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="layout__body">
-                    <form class="form" method="post" action="{% url "room-create" %}">
+                    <form class="form" method="post" action="{% url "room-update" room.pk %}">
                         {% csrf_token %}
                         <div class="form__group">
                             <label for="{{ form.name.id_for_label }}">Room Name</label>

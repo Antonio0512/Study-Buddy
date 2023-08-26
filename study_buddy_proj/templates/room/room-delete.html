@@ -18,7 +18,8 @@
                     </div>
                 </div>
                 <div class="layout__body">
-                    <form class="form" action="{% url "room-delete" room.pk %}">
+                    <form class="form" method="post" action="{% url "room-delete" room.pk %}">
+                        {% csrf_token %}
                         <div class="form__group">
                             <p>Are you sure you want to delete "{{ room.name }}"?</p>
                         </div>

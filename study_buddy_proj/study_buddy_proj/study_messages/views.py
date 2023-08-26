@@ -3,11 +3,17 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
-from django.views.generic import FormView, DeleteView
+from django.views.generic import FormView, DeleteView, ListView
 
 from .models import Message
 from ..rooms.models import Room
 from ..study_messages.forms import MessageForm
+
+
+class MessagesListView(ListView):
+    model = Message
+    template_name = "messages/activity.html"
+    context_object_name = "activity_messages"
 
 
 class MessageAddView(LoginRequiredMixin, FormView):

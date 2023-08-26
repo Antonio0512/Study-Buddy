@@ -8,7 +8,8 @@ urlpatterns = [
     path('', include("study_buddy_proj.common.urls")),
     path('accounts/', include("study_buddy_proj.accounts.urls")),
     path('room/', include("study_buddy_proj.rooms.urls")),
-    path('topics/', include("study_buddy_proj.topics.urls"))
+    path('topics/', include("study_buddy_proj.topics.urls")),
+    path("messages/", include("study_buddy_proj.study_messages.urls"))
 ]
 
 if settings.DEBUG:

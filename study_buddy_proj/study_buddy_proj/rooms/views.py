@@ -44,7 +44,7 @@ class RoomUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "room/room-update.html"
 
     def get_success_url(self):
-        return reverse("room-details")
+        return reverse_lazy("room-details", kwargs={"pk": self.object.pk})
 
     def get_object(self, queryset=None):
         return self.model.objects.get(pk=self.kwargs['pk'])
@@ -62,7 +62,9 @@ class RoomDeleteView(LoginRequiredMixin, DeleteView):
     model = Room
     template_name = "room/room-delete.html"
     context_object_name = "room"
-    success_url = reverse_lazy("rooms-all")
+
+    def get_success_url(self):
+        return reverse_lazy("home")
 
     def dispatch(self, request, *args, **kwargs):
         room = self.get_object()

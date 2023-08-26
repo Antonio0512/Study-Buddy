@@ -67,7 +67,7 @@ class ProfileDetailsView(DetailView):
         context = super().get_context_data(**kwargs)
 
         user = self.get_object()
-        user_topics = Topic.objects.all()
+        user_topics = Topic.objects.all()[:5]
         user_rooms = Room.objects.filter(host=user)
         user_messages = Message.objects.filter(user=user)
         context["rooms"] = user_rooms
@@ -93,7 +93,9 @@ class ProfileDeleteView(DeleteView):
     model = User
     template_name = "accounts/profile_delete.html"
     context_object_name = "profile"
-    success_url = reverse_lazy("home")
+
+    def get_success_url(self):
+        return reverse_lazy("home")
 
     def dispatch(self, request, *args, **kwargs):
         profile = self.get_object()

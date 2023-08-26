@@ -18,7 +18,8 @@
                     </div>
                 </div>
                 <div class="layout__body">
-                    <form class="form" action="{% url "profile-delete" profile.pk %}">
+                    <form class="form" method="post" action="{% url "profile-delete" profile.pk %}">
+                        {% csrf_token %}
                         <div class="form__group">
                             <p>Are you sure you want to delete "{{ profile.username }}"?</p>
                         </div>
