@@ -50,6 +50,7 @@ class UserLoginView(LoginView):
 class UserLogoutView(LoginRequiredMixin, LogoutView):
     template_name = "accounts/user-logout.html"
 
+
     def get(self, request, *args, **kwargs):
         return self.render_to_response({})
 
